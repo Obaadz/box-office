@@ -1,11 +1,23 @@
 import React from 'react';
+import styled from 'styled-components';
+
+const StyledTitle = styled.div`
+  text-align: center;
+`;
+
+const StyledH1 = styled.h1`
+  color: rgb(36, 0, 255);
+  letter-spacing: 10px;
+  text-transform: uppercase;
+  margin: 20px 0px 10px;
+`;
 
 const Title = () => {
   return (
-    <div className="title">
-      <h1>Box Office</h1>
+    <StyledTitle>
+      <StyledH1>Box Office</StyledH1>
       <p>Are you looking for a movie or an actor?</p>
-    </div>
+    </StyledTitle>
   );
 };
 

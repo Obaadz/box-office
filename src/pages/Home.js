@@ -1,10 +1,12 @@
 import React from 'react';
+import Search from '../components/Search';
 import MainPageLayout from '../layouts/MainPageLayout';
 
 const Home = () => {
   return (
     <MainPageLayout>
-      <h1>Welcome to Home</h1>
+      <Search />
+      {/* <Result of search /> */}
     </MainPageLayout>
   );
 };
