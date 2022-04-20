@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-const StyledSearch = styled.div`
+const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,8 +13,7 @@ const StyledInput = styled.input`
   border-radius: 10px;
 `;
 
-const StyledBtn = styled.div`
-  width: max-content;
+const StyledSubmitBtn = styled.button`
   padding: 10px 50px;
   margin-top: 20px;
   color: #fff;
@@ -23,27 +22,30 @@ const StyledBtn = styled.div`
   cursor: pointer;
 `;
 
-const Search = () => {
+const Search = ({ getSearchResults }) => {
   const [search, setSearch] = useState('');
 
   function handleChange(e) {
     setSearch(e.target.value);
   }
 
-  function handleClick() {
-    console.log('clicked');
+  function handleClick(e) {
+    e.preventDefault();
+    getSearchResults(search);
   }
 
   return (
-    <StyledSearch>
+    <StyledForm>
       <StyledInput
         type="text"
         placeholder="Search for something"
         value={search}
         onChange={handleChange}
       />
-      <StyledBtn onClick={handleClick}>Search</StyledBtn>
-    </StyledSearch>
+      <StyledSubmitBtn type="submit" onClick={handleClick}>
+        Search
+      </StyledSubmitBtn>
+    </StyledForm>
   );
 };
 
