@@ -22,7 +22,7 @@ const StyledSubmitBtn = styled.button`
   cursor: pointer;
 `;
 
-const Search = ({ getSearchResults }) => {
+const Search = ({ getSearchQuery }) => {
   const [search, setSearch] = useState('');
 
   function handleChange(e) {
@@ -31,13 +31,14 @@ const Search = ({ getSearchResults }) => {
 
   function handleClick(e) {
     e.preventDefault();
-    getSearchResults(search);
+    getSearchQuery(search);
   }
 
   return (
     <StyledForm>
       <StyledInput
         type="text"
+        autoFocus
         placeholder="Search for something"
         value={search}
         onChange={handleChange}

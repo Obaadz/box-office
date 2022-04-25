@@ -4,17 +4,16 @@ import Results from '../components/Results';
 import MainPageLayout from '../layouts/MainPageLayout';
 
 const Home = () => {
-  const [searchResults, setSearchResults] = useState();
+  const [searchQuery, setSearchQuery] = useState();
 
-  function getSearchResults(results) {
-    setSearchResults(results);
+  function getSearchQuery(results) {
+    setSearchQuery(results);
   }
 
   return (
     <MainPageLayout>
-      {console.count('how times: ')}
-      <Search getSearchResults={getSearchResults} />
-      <Results searchResults={searchResults} />
+      <Search getSearchQuery={getSearchQuery} />
+      <Results searchQuery={searchQuery} />
     </MainPageLayout>
   );
 };
