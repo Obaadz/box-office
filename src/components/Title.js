@@ -9,7 +9,7 @@ const StyledH1 = styled.h1`
   color: rgb(36, 0, 255);
   letter-spacing: 10px;
   text-transform: uppercase;
-  margin: 20px 0px 10px;
+  margin: 10px 0px 0;
 `;
 
 const Title = () => {
