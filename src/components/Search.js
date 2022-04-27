@@ -20,18 +20,23 @@ const StyledSubmitBtn = styled.button`
   background-color: #2401fe;
   border-radius: 10px;
   cursor: pointer;
+
+  &:disabled {
+    background-color: #1a00bf;
+    color: #9d9d9d;
+  }
 `;
 
 const Search = ({ getSearchQuery }) => {
   const [search, setSearch] = useState('');
-
+  const [isSearching, setIsSearching] = useState(false);
   function handleChange(e) {
     setSearch(e.target.value);
   }
 
   function handleClick(e) {
     e.preventDefault();
-    getSearchQuery(search);
+    if (!isSearching) getSearchQuery(search, setIsSearching);
   }
 
   return (
@@ -43,7 +48,11 @@ const Search = ({ getSearchQuery }) => {
         value={search}
         onChange={handleChange}
       />
-      <StyledSubmitBtn type="submit" onClick={handleClick}>
+      <StyledSubmitBtn
+        disabled={isSearching}
+        type="submit"
+        onClick={handleClick}
+      >
         Search
       </StyledSubmitBtn>
     </StyledForm>

@@ -10,7 +10,7 @@ const pages = [
 const renderPages = currentLocation =>
   pages.map(({ id, path, text }) => (
     <li key={id}>
-      <Link to={path} className={path === currentLocation && 'active'}>
+      <Link to={path} className={path === currentLocation ? 'active' : ''}>
         {text}
       </Link>
     </li>

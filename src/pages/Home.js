@@ -4,16 +4,25 @@ import Results from '../components/Results';
 import MainPageLayout from '../layouts/MainPageLayout';
 
 const Home = () => {
-  const [searchQuery, setSearchQuery] = useState();
+  const [searchQuery, setSearchQuery] = useState({
+    results: '',
+    setIsSearching: () => {},
+  });
 
-  function getSearchQuery(results) {
-    setSearchQuery(results);
+  function getSearchQuery(results, setIsSearching) {
+    setSearchQuery({
+      results: results,
+      setIsSearching: setIsSearching,
+    });
   }
 
   return (
     <MainPageLayout>
       <Search getSearchQuery={getSearchQuery} />
-      <Results searchQuery={searchQuery} />
+      <Results
+        searchQuery={searchQuery.results ? searchQuery.results : ''}
+        setIsSearching={searchQuery.setIsSearching}
+      />
     </MainPageLayout>
   );
 };
