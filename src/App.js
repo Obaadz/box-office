@@ -14,12 +14,12 @@ function App() {
   return (
     <Routes>
       <Route
-        path="/"
+        path="box-office"
         element={<Home getSavedStarredShows={getSavedStarredShows} />}
       />
 
       <Route
-        path="/starred"
+        path="box-office/starred"
         element={<Starred getSavedStarredShows={getSavedStarredShows} />}
       />
 

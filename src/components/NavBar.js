@@ -3,8 +3,8 @@ import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
 const pages = [
-  { id: 1, path: '/', text: 'Home' },
-  { id: 2, path: '/starred', text: 'Starred' },
+  { id: 1, path: '/box-office/', text: 'Home' },
+  { id: 2, path: '/box-office/starred', text: 'Starred' },
 ];
 
 const renderPages = currentLocation =>
