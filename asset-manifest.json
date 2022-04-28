@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/box-office/static/css/main.cb1f35b6.css",
+    "main.js": "/box-office/static/js/main.d3df3479.js",
+    "index.html": "/box-office/index.html",
+    "main.cb1f35b6.css.map": "/box-office/static/css/main.cb1f35b6.css.map",
+    "main.d3df3479.js.map": "/box-office/static/js/main.d3df3479.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.cb1f35b6.css",
+    "static/js/main.d3df3479.js"
+  ]
+}
