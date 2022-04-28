@@ -1,23 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import styled from 'styled-components';
+import StyledContainer from './StyledContainer';
 import Show from './Show';
 
 const MAS_SUMMARY_LENGTH = 40;
 
-const Container = styled.div`
-  width: 90%;
-  margin: 20px auto 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 50px;
-`;
-
-const Results = ({ searchQuery, setIsSearching }) => {
+const Results = ({ searchQuery, setIsSearching, savedStarredShows }) => {
   const [searchResults, setSearchResults] = useState(null);
   const [searchList, setSearchList] = useState(null);
-  const [starredShows, setStarredShows] = useState([]);
+  const [starredShows, setStarredShows] = useState(
+    savedStarredShows ? savedStarredShows : []
+  );
   // when there is a query Fetch data from the API then set this data to searchResults.
   useEffect(() => {
     getSearchResults(searchQuery, setIsSearching);
@@ -48,9 +41,6 @@ const Results = ({ searchQuery, setIsSearching }) => {
                 .slice(0, MAS_SUMMARY_LENGTH) + '...'
             : 'There is no Description',
           image: result.show.image,
-          isStarred: starredShows.some(
-            starredShow => starredShow.id === result.show.id
-          ),
         };
         if (!show.image) return false;
 
@@ -59,12 +49,17 @@ const Results = ({ searchQuery, setIsSearching }) => {
             // starredShowsIDs={starredShowsIDs}
             key={show.id}
             show={show}
-            handleStar={starShow}
+            starredShows={starredShows}
+            setStarredShows={setStarredShows}
           />
         );
       })
     );
   }, [searchResults]);
+
+  useEffect(() => {
+    localStorage.setItem('starredShows', JSON.stringify(starredShows));
+  }, [starredShows]);
 
   async function getSearchResults(searchQuery, setIsSearching) {
     setIsSearching(true);
@@ -75,25 +70,7 @@ const Results = ({ searchQuery, setIsSearching }) => {
     setIsSearching(false);
   }
 
-  function starShow(show, setIsStarred) {
-    if (show.isStarred) {
-      setIsStarred(false);
-      show.isStarred = false;
-
-      setStarredShows(
-        starredShows.filter(starredShow => {
-          return starredShow.id !== show.id;
-        })
-      );
-    } else {
-      setIsStarred(true);
-      show.isStarred = true;
-
-      setStarredShows(prevStarredShows => [...prevStarredShows, show]);
-    }
-  }
-
-  return <Container>{searchList ? searchList : 'Empty'}</Container>;
+  return <StyledContainer>{searchList ? searchList : 'Empty'}</StyledContainer>;
 };
 
 export default Results;

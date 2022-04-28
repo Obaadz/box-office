@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaRegStar, FaStar } from 'react-icons/fa';
 import styled from 'styled-components';
 
@@ -44,9 +44,29 @@ const StarBtn = styled.div`
   user-select: none;
   cursor: pointer;
 `;
-// starred={starredShows.some(showID => showID == show.id)} onClick={saveShow}
-const Show = ({ show, handleStar }) => {
-  const [isStarred, setIsStarred] = useState(show.isStarred);
+
+const Show = ({ show, starredShows, setStarredShows }) => {
+  const [isStarred, setIsStarred] = useState(
+    starredShows.some(starredShow => {
+      return starredShow.id === show.id;
+    })
+  );
+
+  function handleStar(show, setIsStarred) {
+    if (isStarred) {
+      setIsStarred(false);
+
+      setStarredShows(prevStarredShows =>
+        prevStarredShows.filter(starredShow => {
+          return starredShow.id !== show.id;
+        })
+      );
+    } else {
+      setIsStarred(true);
+
+      setStarredShows(prevStarredShows => [...prevStarredShows, show]);
+    }
+  }
 
   return (
     <StyledShow>
