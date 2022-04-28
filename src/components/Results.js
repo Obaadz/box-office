@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import Show from './Show';
 
 const MAS_SUMMARY_LENGTH = 40;
 
@@ -13,41 +14,10 @@ const Container = styled.div`
   gap: 50px;
 `;
 
-const Show = styled.div`
-  width: 20%;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-
-  h2 {
-    margin-bottom: 5px;
-  }
-  img {
-    width: 100%;
-    border-radius: 20px;
-  }
-
-  @media (max-width: 992px) {
-    & {
-      width: 40%;
-    }
-  }
-
-  @media (max-width: 767px) {
-    & {
-      width: 70%;
-
-      p {
-        max-width: 100%;
-      }
-    }
-  }
-`;
-
 const Results = ({ searchQuery, setIsSearching }) => {
   const [searchResults, setSearchResults] = useState(null);
   const [searchList, setSearchList] = useState(null);
-
+  const [starredShows, setStarredShows] = useState([]);
   // when there is a query Fetch data from the API then set this data to searchResults.
   useEffect(() => {
     getSearchResults(searchQuery, setIsSearching);
@@ -78,16 +48,19 @@ const Results = ({ searchQuery, setIsSearching }) => {
                 .slice(0, MAS_SUMMARY_LENGTH) + '...'
             : 'There is no Description',
           image: result.show.image,
+          isStarred: starredShows.some(
+            starredShow => starredShow.id === result.show.id
+          ),
         };
         if (!show.image) return false;
 
         return (
-          <Show key={show.id}>
-            <img src={show.image.medium} alt={show.name} />
-            <h2>{show.name}</h2>
-            <p>{show.summary}</p>
-            {/* <Star starred={starredShows.some(showID => showID == show.id)} onClick={saveShow}>Star It</Star> */}
-          </Show>
+          <Show
+            // starredShowsIDs={starredShowsIDs}
+            key={show.id}
+            show={show}
+            handleStar={starShow}
+          />
         );
       })
     );
@@ -102,7 +75,23 @@ const Results = ({ searchQuery, setIsSearching }) => {
     setIsSearching(false);
   }
 
-  function saveShow() {}
+  function starShow(show, setIsStarred) {
+    if (show.isStarred) {
+      setIsStarred(false);
+      show.isStarred = false;
+
+      setStarredShows(
+        starredShows.filter(starredShow => {
+          return starredShow.id !== show.id;
+        })
+      );
+    } else {
+      setIsStarred(true);
+      show.isStarred = true;
+
+      setStarredShows(prevStarredShows => [...prevStarredShows, show]);
+    }
+  }
 
   return <Container>{searchList ? searchList : 'Empty'}</Container>;
 };

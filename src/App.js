@@ -8,7 +8,10 @@ function App() {
     <Routes>
       <Route path="/" element={<Home />} />
 
-      <Route path="/starred" element={<Starred />} />
+      <Route
+        path="/starred"
+        element={<Starred starredShows={[{ id: 1, name: 'girls' }]} />}
+      />
 
       <Route path="*" element={<h1>Not Found</h1>} />
     </Routes>
